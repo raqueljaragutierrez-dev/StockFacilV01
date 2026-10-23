@@ -33,6 +33,31 @@ public class CategoriaDAO {
                 }
                 return lista;
     }
+    //NUEVO METODO QUE BUSCA CATEGORIAS POR NOMBRE
+    //Busca caategorias por coincidencia parcil en el nombre, incluye tanto las categorias activas como las inactivas
+     public List<Categoria> buscarPorNombre(String nombre)
+            throws SQLException {
+
+        String sql = "SELECT * FROM categoria "
+                   + "WHERE nombre LIKE ? "
+                   + "ORDER BY nombre";
+
+        List<Categoria> lista = new ArrayList<>();
+
+        try (Connection con = Conexion.obtener();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, "%" + nombre + "%");
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(mapear(rs));
+                }
+            }
+        }
+
+        return lista;
+    }
     //mapear carga todas las consultas
     private Categoria mapear(ResultSet rs )throws SQLException{
         Categoria c = new Categoria();

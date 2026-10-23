@@ -2,15 +2,22 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../comun/encabezado.jsp" %>
+<%-- 
+    aqui se muestra el titulo 
+--%>
 <h1 class="h3 mb-3">${categoria.idCategoria == 0 ? 'Nueva categoría' : 'Editar categoría'}</h1>
+<%-- mostrar mensajes de error--%>
+
 <c:if test="${not empty errores}">
 <div class="alert alert-danger">
 <c:forEach var="e" items="${errores}"><div><c:out value="${e}"/></div></c:forEach>
 </div>
 </c:if>
+<%-- crea el formulario--%>
 <form method="post" action="categorias" class="card card-body" style="max-width: 560px">
 <input type="hidden" name="accion" value="guardar">
 <input type="hidden" name="idCategoria" value="${categoria.idCategoria}">
+<%-- campo para el nombre--%>
 <label class="form-label">Nombre</label>
 <input class="form-control mb-3" name="nombre" maxlength="60" required
            value="<c:out value='${categoria.nombre}'/>">
