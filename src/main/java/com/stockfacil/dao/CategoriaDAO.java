@@ -42,21 +42,21 @@ public class CategoriaDAO {
                    + "WHERE nombre LIKE ? "
                    + "ORDER BY nombre";
 
-        List<Categoria> lista = new ArrayList<>();
+        List<Categoria> lista = new ArrayList<>();//guarda todas las listas que tenemos
 
-        try (Connection con = Conexion.obtener();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = Conexion.obtener();//nos sirve para indicar si sucede algun error con la conexion
+             PreparedStatement ps = con.prepareStatement(sql)) {//preparar la consulta que ya habia definido
 
-            ps.setString(1, "%" + nombre + "%");
+            ps.setString(1, "%" + nombre + "%");//le damos las posiciones, 1 esta el nombre, y la concatenacion
 
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    lista.add(mapear(rs));
+            try (ResultSet rs = ps.executeQuery()) {//obtener el resultado 
+                while (rs.next()) {//todo lo que leyo
+                    lista.add(mapear(rs));//agregamos la lista
                 }
             }
         }
 
-        return lista;
+        return lista;//aqui retorna la lista de todas las categorias que el usuario ingreso a buscar
     }
     //mapear carga todas las consultas
     private Categoria mapear(ResultSet rs )throws SQLException{

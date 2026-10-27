@@ -65,6 +65,9 @@
                 </td>
             </tr>
         </c:forEach>
+        <c:if test="${empty categorias}">
+            <tr><td colspan="4" class="text-muted">No hay categorias que coincidan con la busqueda.</td></tr>
+        </c:if>
     </tbody>
 </table>
 <%@ include file="../comun/pie.jsp" %>

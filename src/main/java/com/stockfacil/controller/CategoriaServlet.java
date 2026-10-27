@@ -25,7 +25,7 @@ public class CategoriaServlet extends HttpServlet {//va a obtener cada uno de lo
     private final CategoriaDAO dao = new CategoriaDAO();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)//metodo que recibe toda la lista para mostrar en el formulario
             throws ServletException, IOException {
         String accion = req.getParameter("accion");
         try {
@@ -39,12 +39,12 @@ public class CategoriaServlet extends HttpServlet {//va a obtener cada uno de lo
             } else {
                 String nombre = req.getParameter("nombre");//recibe el texto del parametro nombre 
 
-                List<Categoria> categorias;
+                List<Categoria> categorias;//
 
                 if (nombre != null && !nombre.trim().isEmpty()) {//comprueba si el usuario escribio algo
-                    categorias = dao.buscarPorNombre(nombre.trim());
+                    categorias = dao.buscarPorNombre(nombre.trim());//sino coincide borre lo escrito
                 } else {
-                    categorias = dao.lista();
+                    categorias = dao.lista();//si encontro muestra la lista
                 }
 
                 req.setAttribute("categorias", categorias);//envia los resultados al JSP
